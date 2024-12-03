@@ -21,22 +21,22 @@ fn check_report(report: &Vec<i32>) -> bool {
 fn part2(input: &str) -> String {
     let mut safe_count = 0;
     for report in input.lines() {
-        let report = report
+        let report: Vec<i32> = report
             .split_whitespace()
-            .map(|level| level.parse::<i32>().unwrap())
-            .collect::<Vec<i32>>();
+            .map(|level| level.parse().unwrap())
+            .collect();
 
-        if !check_report(&report) {
-            for i in 0..report.len() {
-                let mut new_report = report.clone();
-                new_report.remove(i);
-                if check_report(&new_report) {
-                    safe_count += 1;
-                    break;
-                }
-            }
-        } else {
+        if check_report(&report) {
             safe_count += 1;
+            continue;
+        }
+        for i in 0..report.len() {
+            let mut new_report = report.clone();
+            new_report.remove(i);
+            if check_report(&new_report) {
+                safe_count += 1;
+                break;
+            }
         }
     }
     safe_count.to_string()
