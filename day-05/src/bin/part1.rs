@@ -52,7 +52,7 @@ fn check_page(page: i32, update: &Vec<i32>, page_ordering_rules: &Vec<(i32, i32)
                     < update.iter().position(|&x| x == b).unwrap()
             }
             (true, false) | (false, true) => true,
-            (false, false) => panic!("impossible"),
+            _ => panic!("impossible"),
         })
 }
 
